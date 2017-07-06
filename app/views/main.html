@@ -1,11 +1,17 @@
-<div ng-repeat="fruit in fruits">
-  {{fruit.name}}
-  {{fruit.price}}{{currency}}
-  {{fruit.status}}
-  <input type="text" ng-model="fruit.quantity" ng-init="fruit.quantity = 0">
-  <button ng-click="fruit.quantity=fruit.quantity+1">+</button>
-</div>
+<ul class="fruit-container clearfix">
+  <li class="fruit-items" ng-repeat="fruit in fruits">
+    <img class="fruit-img" ng-src={{fruit.image}}>
+    <div class="fruit-details">
+      <span class="fruit fruit-name" ng-bind="fruit.name"></span>
+      <span class="fruit fruit-price"><b>Price: </b>{{fruit.price}}{{currency}}</span>
+      <span class="fruit fruit-status"><b>Status:</b> {{fruit.status}}</span>
+    </div>
+    <button class="btn-remove" ng-click="fruit.quantity=(fruit.quantity == 0) ? 0 :fruit.quantity-1">-</button>
+    <input type="text" ng-model="fruit.quantity" ng-init="fruit.quantity = 0">
+    <button class="btn-add" ng-click="fruit.quantity=(fruit.quantity == 10) ? 10 :fruit.quantity+1">+</button>
+  </li>
+</ul>
 
-<button ng-click="placeOrder()">
+<button ng-click="placeOrder(currency)" class="btn-buy">
   Buy
 </button>

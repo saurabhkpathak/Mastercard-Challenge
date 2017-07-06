@@ -8,7 +8,7 @@
  * Controller of the fruitShopApp
  */
 angular.module('fruitShopApp')
-  .controller('MainCtrl', ['fruitsFactory', '$scope', function (fruitsFactory, $scope) {
+  .controller('MainCtrl', ['fruitsFactory', '$scope', '$log', '$window', function (fruitsFactory, $scope, $log, $window) {
     fruitsFactory.getFruits().then(function(response) {
         $scope.fruits = response.products;
         $scope.currency = response.currency;
@@ -20,20 +20,22 @@ angular.module('fruitShopApp')
         var order = $scope.fruits.filter(function (fruit) {
           return (fruit.quantity > 0);
         });
-        order = {
-          "amountCharged": 100,
-          "orderItems": [
-            {
-              "productId": 500,
-              "quantity": 3
-            }
-          ],
-          "statusCode": 200
+        var orderData = {
+          'amountCharged': 0,
+          'orderItems': [],
+          'statusCode': 200
         };
-        fruitsFactory.placeOrder(order).then(function(response) {
-          alert(response);
+        order.forEach(function(fruit) {
+          orderData.orderItems.push({
+              'productId': fruit.id,
+              'quantity': fruit.quantity
+            });
+            orderData.amountCharged += fruit.price*fruit.quantity;
+        }, this);
+        fruitsFactory.placeOrder(orderData).then(function() {
+          $window.alert('Purchase Succesful. Total amount charged is ' + orderData.amountCharged + $scope.currency);
         }, function(error) {
-          console.log(error);
+          $log.debug(error);
         });
       };
   }]);
