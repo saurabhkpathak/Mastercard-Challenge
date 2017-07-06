@@ -1,0 +1,11 @@
+<div ng-repeat="fruit in fruits">
+  {{fruit.name}}
+  {{fruit.price}}{{currency}}
+  {{fruit.status}}
+  <input type="text" ng-model="fruit.quantity" ng-init="fruit.quantity = 0">
+  <button ng-click="fruit.quantity=fruit.quantity+1">+</button>
+</div>
+
+<button>
+  Buy
+</button>
