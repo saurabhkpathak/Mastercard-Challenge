@@ -10,5 +10,5 @@
 angular.module('fruitShopApp')
   .constant('apiUrl', {
     'getFruits': 'https://3xxm1ijwxe.execute-api.eu-west-1.amazonaws.com/test/products',
-    'placeOrder': ''
+    'placeOrder': 'https://3xxm1ijwxe.execute-api.eu-west-1.amazonaws.com/test/order'
   });
